@@ -19,6 +19,16 @@ function update_img() {
     })
 }
 
+function buttons_off() {
+    btn_good.disabled = true;
+    btn_bad.disabled = true;
+}
+
+function buttons_on() {
+    btn_good.disabled = false;
+    btn_bad.disabled = false;
+}
+
 function evt_submit(evt) {
     evt.preventDefault();
     if (!input_rater.value) {
@@ -27,14 +37,22 @@ function evt_submit(evt) {
     }
 
     const btn = event.currentTarget;
+    if (btn.disabled) {
+        return;
+    }
+    buttons_off();
+
+
     let rating = 0;
     if (btn.id == "btn-good") {
         rating = 1;
     }
+
     let to_submit = {
         rater: input_rater.value,
         rating: rating
     }
+
     const submit_url = post_url + input_basename.value;
 
     return fetch(submit_url, {
@@ -48,10 +66,11 @@ function evt_submit(evt) {
         if (!resp.ok) {
             resp.text().then(msg => { throw new Error(msg) });
         }
-        update_img()
+        update_img();
+        buttons_on();
     });
 }
 
-document.addEventListener('DOMContentLoaded', update_img);
+document.addEventListener('DOMContentLoaded', function() { update_img(); buttons_on(); });
 btn_good.addEventListener('click', evt_submit);
 btn_bad.addEventListener('click', evt_submit);
