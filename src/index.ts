@@ -15,6 +15,13 @@ app.get('/api/next', async c => {
     return c.json(results)
 })
 
+app.get('/api/all', async c => {
+    const { results } = await c.env.DB.prepare(`
+    SELECT * FROM ratings;
+    `).all()
+    return c.json(results)
+})
+
 app.post('/api/rate/:basename', async c => {
     const { basename } = c.req.param()
     const { rater, rating } = await c.req.json()
