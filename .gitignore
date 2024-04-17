@@ -171,3 +171,5 @@ dist
 .dev.vars
 .wrangler/
 schemas/inserts.sql
+.api-key
+_site

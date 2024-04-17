@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>scale score - rate your fish</title>
+    <link rel="stylesheet" href="https://elementcss.neocities.org/element.css">
+<style>
+.styled {
+  border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-image: linear-gradient(
+    to top left,
+    rgb(0 0 0 / 20%),
+    rgb(0 0 0 / 20%) 30%,
+    rgb(0 0 0 / 0%)
+  );
+  box-shadow:
+    inset 2px 2px 3px rgb(255 255 255 / 60%),
+    inset -2px -2px 3px rgb(0 0 0 / 60%);
+}
+
+.styled:hover {
+  background-color: rgb(255 0 0 / 100%);
+}
+
+.styled:active {
+  box-shadow:
+    inset -2px -2px 3px rgb(255 255 255 / 60%),
+    inset 2px 2px 3px rgb(0 0 0 / 60%);
+}
+</style>
+  </head>
+  <body style="text-align: center">
+      <div id="image-container" style="padding: 40px">
+          <img alt="display image" id="image-display" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Sample.png/300px-Sample.png">
+      </div>
+      <div style="margin-top: 40px"><label for="rater">Your name: <input type="text" name="rater" id="rater"></label></div>
+      <div style="margin-bottom: 40px"><label for="basename">This is: <input type="text" name="basename" id="basename" disabled value=""></label></div>
+      <div>
+          <input id="btn-good" class="styled" type="button" style="background-color: rgb(0 220 0 / 100%); margin-right: 20px;" value="👍">
+          <input id="btn-bad" class="styled" type="button" style="background-color: rgb(220 0 0 / 100%); margin-left: 20px;" value="👎">
+      </div>
+  </body>
+</html>
