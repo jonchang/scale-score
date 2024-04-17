@@ -10,7 +10,7 @@ app.use('/api/*', cors());
 
 app.get('/api/next', async c => {
     const { results } = await c.env.DB.prepare(`
-    SELECT images.basename FROM images LEFT JOIN ratings USING (basename) WHERE rating IS NULL LIMIT 1
+    SELECT images.basename FROM images LEFT JOIN ratings USING (basename) WHERE rating IS NULL ORDER BY RANDOM() LIMIT 1
     `).all()
     return c.json(results)
 })
