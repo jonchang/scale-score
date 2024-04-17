@@ -174,3 +174,4 @@ schemas/inserts-*.sql
 .api-key
 _site
 all_ratings.json
+only-include-prefix.txt

@@ -5,10 +5,12 @@ from pathlib import Path
 from collections import defaultdict
 
 base = Path("/Users/jonchang/Library/CloudStorage/Box-Box/image-segmentation")
-p1 = base / "Miyazawa_fishpix_segmented"
+# p1 = base / "Miyazawa_fishpix_segmented"
 p2 = base / "Miyazawa_fishbase_segmented"
 
-all_files = set(p1.iterdir()) | set(p2.iterdir())
+prefix = [x.strip() for x in Path("only-include-prefix.txt").open().readlines()]
+
+all_files = set(p2.iterdir())
 
 dest = Path("_site")
 dest.mkdir(parents=True, exist_ok=True)
@@ -19,6 +21,8 @@ for idx in "0123456789abcdefghijklmnopqrstuvwxyz":
 basenames = defaultdict(list)
 for path in all_files:
     bn = path.name
+    if not any([bn.startswith(x) for x in prefix]):
+        continue
     shard = dest / bn[0]
     basenames[bn[0]].append(f"('{bn}')")
     shutil.copy(path, shard)
