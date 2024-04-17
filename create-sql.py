@@ -23,7 +23,6 @@ for path in all_files:
     basenames[bn[0]].append(f"('{bn}')")
     shutil.copy(path, shard)
 
-with open(Path("schemas/inserts.sql"), "w") as wfile:
-    for inserts in basenames.values():
-        insert_str = ", ".join(inserts)
-        wfile.write(f"INSERT INTO IMAGES (basename) VALUES {insert_str};\n")
+for prefix, inserts in basenames.items():
+    insert_str = ", ".join(inserts)
+    Path(f"schemas/inserts-{prefix}.sql").write_text(f"INSERT INTO IMAGES (basename) VALUES {insert_str};\n")
