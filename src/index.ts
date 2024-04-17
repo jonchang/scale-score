@@ -26,7 +26,7 @@ app.post('/api/rate/:basename', async c => {
     const { basename } = c.req.param()
     const { rater, rating } = await c.req.json()
 
-    if (!rating) return c.text("Missing rating value")
+    if (!(rating === 1 || rating === 0)) return c.text("Missing rating value")
     if (!rater) return c.text("Missing rater value")
 
     const { success } = await c.env.DB.prepare(`
