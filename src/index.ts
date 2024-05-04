@@ -22,6 +22,14 @@ app.get('/api/all', async c => {
     return c.json(results)
 })
 
+app.get('/api/review', async c => {
+    const { results } = await c.env.DB.prepare(`
+    SELECT DISTINCT rater, basename, rating FROM ratings ORDER BY rater, basename, rating
+    `).all()
+    const grouped = Object.groupBy(results, (row) => row.rater)
+    return c.json(grouped)
+})
+
 app.post('/api/rate/:basename', async c => {
     const { basename } = c.req.param()
     const { rater, rating } = await c.req.json()
