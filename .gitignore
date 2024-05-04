@@ -175,3 +175,4 @@ schemas/inserts-*.sql
 _site
 all_ratings.json
 only-include-prefix.txt
+export.sql
