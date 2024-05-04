@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnswerKey xmlns="http://mechanicalturk.amazonaws.com/AWSMechanicalTurkDataSchemas/2005-10-01/AnswerKey.xsd">
+    <Question>
+        <QuestionIdentifier>example1</QuestionIdentifier>
+        <AnswerOption>
+            <SelectionIdentifier>No</SelectionIdentifier>
+            <AnswerScore>1</AnswerScore>
+        </AnswerOption>
+    </Question>
+    <Question>
+        <QuestionIdentifier>example2</QuestionIdentifier>
+        <AnswerOption>
+            <SelectionIdentifier>Yes</SelectionIdentifier>
+            <AnswerScore>1</AnswerScore>
+        </AnswerOption>
+    </Question>
+    <Question>
+        <QuestionIdentifier>example3</QuestionIdentifier>
+        <AnswerOption>
+            <SelectionIdentifier>Yes</SelectionIdentifier>
+            <AnswerScore>1</AnswerScore>
+        </AnswerOption>
+    </Question>
+    <Question>
+        <QuestionIdentifier>example4</QuestionIdentifier>
+        <AnswerOption>
+            <SelectionIdentifier>No</SelectionIdentifier>
+            <AnswerScore>1</AnswerScore>
+        </AnswerOption>
+    </Question>
+    <QualificationValueMapping>
+        <PercentageMapping>
+            <MaximumSummedScore>4</MaximumSummedScore>
+        </PercentageMapping>
+    </QualificationValueMapping>
+</AnswerKey>
