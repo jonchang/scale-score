@@ -4,9 +4,12 @@ set -eu
 
 source .api-key
 mkdir -p _site
-cp index.html index.js _site
-cp mturk.html mturk.js _site
-cp protocol/protocol.html _site
+mkdir -p _site/protocol
+
+pushd app
+    cp -- *.css *.html *.js ../_site
+    cp -- protocol/protocol.html ../_site
+popd
 
 pushd _site
     # gem exec neocities push --prune .
