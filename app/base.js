@@ -97,7 +97,7 @@ function final_submit() {
     const input_idx = document.getElementById("idx");
     input_idx.value = parseInt(input_idx.value, 10) + 1
 
-    if (parseInt(input_idx.value, 10) >= 5) {
+    if (parseInt(input_idx.value, 10) > 5) {
         const finalsubmit = document.getElementById('finalsubmit');
         const myform = document.getElementById("myform");
         myform.action = searchParams.get("turkSubmitTo") + "/mturk/externalSubmit";
