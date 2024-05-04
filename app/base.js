@@ -1,10 +1,8 @@
 const btn_good = document.getElementById("btn-good");
 const btn_bad = document.getElementById("btn-bad");
-const input_idx = document.getElementById("idx");
 const input_basename = document.getElementById("basename");
 const input_rater = document.getElementById("rater");
 const img = document.getElementById("image-display");
-const preview = document.getElementById("preview");
 
 const post_url = "https://scale-score.jonchang.workers.dev/api/rate/"
 const get_url = "https://scale-score.jonchang.workers.dev/api/next"
@@ -12,6 +10,7 @@ const img_prefix = "https://scale-score.neocities.org/"
 const searchParams = new URLSearchParams(window.location.search);
 
 function check_mturk() {
+    const preview = document.getElementById("preview");
     const rater = searchParams.get("workerId");
     if (!rater) {
         preview.innerText = 'WARNING: MTurk workerId not found! HIT data cannot be recorded.';
@@ -89,13 +88,15 @@ function evt_submit(evt) {
             resp.text().then(msg => { throw new Error(msg) });
         }
         update_img();
-        input_idx.value = parseInt(input_idx.value, 10) + 1
         buttons_on();
         final_submit();
     });
 }
 
 function final_submit() {
+    const input_idx = document.getElementById("idx");
+    input_idx.value = parseInt(input_idx.value, 10) + 1
+
     if (parseInt(input_idx.value, 10) >= 5) {
         const finalsubmit = document.getElementById('finalsubmit');
         const myform = document.getElementById("myform");
@@ -110,6 +111,5 @@ function final_submit() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() { update_img(); buttons_on(); final_submit(); check_mturk(); });
 btn_good.addEventListener('click', evt_submit);
 btn_bad.addEventListener('click', evt_submit);

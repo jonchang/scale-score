@@ -4,7 +4,7 @@
     <title>scale score - rate your fish</title>
     <link rel="stylesheet" href="https://elementcss.neocities.org/element.css">
     <link rel="stylesheet" href="style.css">
-    <script src="mturk.js?2" defer></script>
+    <script src="base.js" defer></script>
   </head>
   <body>
       <noscript><h1>JAVASCRIPT IS DISABLED. THIS TASK REQUIRES JAVASCRIPT</h1></noscript>
@@ -32,5 +32,13 @@
           <button hidden id="finalsubmit" class="styled" type="submit" disabled>Submit my work!</button>
           </form>
       </div>
+      <script>
+document.addEventListener('DOMContentLoaded', function() {
+    update_img();
+    buttons_on();
+    final_submit();
+    check_mturk();
+});
+      </script>
   </body>
 </html>
