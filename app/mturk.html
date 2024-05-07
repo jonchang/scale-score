@@ -35,6 +35,8 @@
       <script>
 document.addEventListener('DOMContentLoaded', function() {
     update_img();
+    btn_good.addEventListener('click', evt_submit);
+    btn_bad.addEventListener('click', evt_submit);
     buttons_on();
     final_submit();
     check_mturk();

@@ -26,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // null out final_submit - don't need it for non-mturk
     final_submit = function() {};
     update_img();
+    btn_good.addEventListener('click', evt_submit);
+    btn_bad.addEventListener('click', evt_submit);
     buttons_on();
 });
       </script>

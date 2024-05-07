@@ -6,6 +6,7 @@ const img = document.getElementById("image-display");
 
 const post_url = "https://scale-score.jonchang.workers.dev/api/rate/"
 const get_url = "https://scale-score.jonchang.workers.dev/api/next"
+const review_url = "https://scale-score.jonchang.workers.dev/api/review"
 const img_prefix = "https://scale-score.neocities.org/"
 const searchParams = new URLSearchParams(window.location.search);
 
@@ -111,5 +112,70 @@ function final_submit() {
     }
 }
 
-btn_good.addEventListener('click', evt_submit);
-btn_bad.addEventListener('click', evt_submit);
+function create_review_item(bn) {
+    const container = document.createElement("figure");
+    container.className = "item";
+    const sharded = bn[0] + "/" + bn;
+    const img = document.createElement("img");
+    img.src = sharded;
+    img.setAttribute("loading", "lazy");
+    const caption = document.createElement("figcaption");
+    caption.innerText = bn;
+    container.appendChild(img);
+    container.appendChild(caption);
+    return container;
+}
+
+function create_group(user) {
+    const container = document.createElement("div");
+    const header = document.createElement("h2");
+    header.innerText = user;
+
+    const details1 = document.createElement("details");
+    const summary1 = document.createElement("summary");
+    const wrap1 = document.createElement("div");
+    wrap1.className = "wrap";
+    summary1.innerText = "Rated Good";
+    details1.appendChild(summary1);
+    details1.appendChild(wrap1);
+
+    const details2 = document.createElement("details");
+    const summary2 = document.createElement("summary");
+    const wrap2 = document.createElement("div");
+    wrap2.className = "wrap";
+    summary2.innerText = "Rated Bad";
+    details2.appendChild(summary2);
+    details2.appendChild(wrap2);
+
+    container.appendChild(header);
+    container.appendChild(details1);
+    container.appendChild(details2);
+    return [container, wrap1, wrap2];
+}
+
+function populate_review() {
+    const content = document.getElementById("content");
+
+    fetch(review_url, {
+        method: 'GET',
+        headers: { "Accept": "application/json" }
+    }).then(resp => {
+        if (!resp.ok) {
+            resp.text().then(msg => { throw new Error(msg) });
+        }
+        return resp.json();
+    }).then(json => {
+        for (const [rater, reviews] of Object.entries(json)) {
+            const [container, good, bad] = create_group(rater + " (" + reviews.length + ")");
+            for (const row of reviews) {
+                const item = create_review_item(row.basename);
+                if (row.rating === 1) {
+                    good.appendChild(item);
+                } else {
+                    bad.appendChild(item);
+                }
+            }
+            content.appendChild(container);
+        }
+    });
+}

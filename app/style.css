@@ -56,3 +56,14 @@ body {
 #finalsubmit {
     background-color: rgb(0 100 0 / 100%);
 }
+
+.wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.item {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+}
