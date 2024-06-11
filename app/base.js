@@ -173,14 +173,20 @@ function populate_review() {
     }).then(json => {
         for (const [rater, reviews] of Object.entries(json)) {
             const [container, good, bad] = create_group(rater + " (" + reviews.length + ")");
+            let good_count = 0;
+            let bad_count = 0;
             for (const row of reviews) {
                 const item = create_review_item(row.basename);
                 if (row.rating === 1) {
                     good.appendChild(item);
+                    good_count += 1;
                 } else {
                     bad.appendChild(item);
+                    bad_count += 1;
                 }
             }
+            good.parentNode.getElementsByTagName('summary')[0].innerText = 'Rated Good (' + good_count + ')';
+            bad.parentNode.getElementsByTagName('summary')[0].innerText = 'Rated Bad (' + bad_count + ')';
             content.appendChild(container);
         }
     });
