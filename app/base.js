@@ -7,6 +7,7 @@ const img = document.getElementById("image-display");
 const post_url = "https://scale-score.jonchang.workers.dev/api/rate/"
 const get_url = "https://scale-score.jonchang.workers.dev/api/next"
 const review_url = "https://scale-score.jonchang.workers.dev/api/review"
+const best_url = "https://scale-score.jonchang.workers.dev/api/best"
 const img_prefix = "https://scale-score.neocities.org/"
 const searchParams = new URLSearchParams(window.location.search);
 
@@ -188,6 +189,24 @@ function populate_review() {
             good.parentNode.getElementsByTagName('summary')[0].innerText = 'Rated Good (' + good_count + ')';
             bad.parentNode.getElementsByTagName('summary')[0].innerText = 'Rated Bad (' + bad_count + ')';
             content.appendChild(container);
+        }
+    });
+}
+
+function populate_best() {
+    const content = document.getElementById("content");
+
+    fetch(best_url, {
+        method: 'GET',
+        headers: { "Accept": "application/json" }
+    }).then(resp => {
+        if (!resp.ok) {
+            resp.text().then(msg => { throw new Error(msg) });
+        }
+        return resp.json();
+    }).then(json => {
+        for (const [key, value] of Object.entries(json)) {
+            content.appendChild(create_review_item(value.basename))
         }
     });
 }

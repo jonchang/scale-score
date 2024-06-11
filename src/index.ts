@@ -22,6 +22,13 @@ app.get('/api/all', async c => {
     return c.json(results)
 })
 
+app.get('/api/best', async c => {
+    const { results } = await c.env.DB.prepare(`
+    SELECT basename FROM ratings GROUP BY basename HAVING AVG(rating) = 1;
+    `).all()
+    return c.json(results)
+})
+
 app.get('/api/review', async c => {
     const { results } = await c.env.DB.prepare(`
     SELECT DISTINCT rater, basename, rating FROM ratings ORDER BY rater, basename, rating
