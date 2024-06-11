@@ -1,11 +1,14 @@
 import boto3
 
 
-endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
-# endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
+# endpoint_url = 'https://mturk-requester-sandbox.us-east-1.amazonaws.com'
+endpoint_url = 'https://mturk-requester.us-east-1.amazonaws.com'
 
 qualifier = '3DVPGYXANKRT4J2W1JVQFIND2NSVLH' # sandbox
 # qualifier = '3ZK7SK3NC597HL0QKZY6NF1NVFA124' # live
+
+
+qualifier_lvl_2 = '3UZ6VZ89OTWY9DQPLBCKVV8XRBXGBE' # live
 
 client = boto3.client(
     'mturk',
@@ -22,7 +25,7 @@ new_hit = client.create_hit_type(
     AssignmentDurationInSeconds = 600,
     AutoApprovalDelayInSeconds = 432000,
     QualificationRequirements=[
-        {'QualificationTypeId':qualifier,
+        {'QualificationTypeId':qualifier_lvl_2,
          'Comparator': 'EqualTo',
          'IntegerValues':[100]},
         {'QualificationTypeId':'00000000000000000040',
