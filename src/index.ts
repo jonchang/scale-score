@@ -9,10 +9,16 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.use('/api/*', cors());
 
 app.get('/api/next', async c => {
-    const { results } = await c.env.DB.prepare(`
+    let res = await c.env.DB.prepare(`
     SELECT images.basename FROM images LEFT JOIN ratings USING (basename) WHERE rating IS NULL ORDER BY RANDOM() LIMIT 1
     `).all()
-    return c.json(results)
+    if (res.results.length == 0) {
+        let { results } = await c.env.DB.prepare(`
+with cnt as (select count(1) as ct, basename from images left join ratings using (basename) group by basename) select basename from cnt order by ct, random() asc limit 1;
+        `).all()
+        return c.json(results)
+    }
+    return c.json(res.results)
 })
 
 app.get('/api/all', async c => {
