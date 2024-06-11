@@ -30,12 +30,19 @@ function check_mturk() {
     document.getElementById("assignmentId").value = assignment;
 }
 
+function basename2url(basename) {
+    let shard = basename[0];
+    if (shard == '-') {
+        shard = basename[1];
+    }
+    return img_prefix + shard + "/" + basename;
+}
+
 function update_img() {
     const response = fetch(get_url).then(response => {
         response.json().then(js => {
             const basename = js[0].basename;
-            const img_url = img_prefix + basename[0] + "/" + basename;
-            img.src = img_url;
+            img.src = basename2url(basename)
             input_basename.value = basename;
         })
     })
@@ -115,9 +122,8 @@ function final_submit() {
 function create_review_item(bn) {
     const container = document.createElement("figure");
     container.className = "item";
-    const sharded = bn[0] + "/" + bn;
     const img = document.createElement("img");
-    img.src = sharded;
+    img.src = basename2url(bn);
     img.setAttribute("loading", "lazy");
     const caption = document.createElement("figcaption");
     caption.innerText = bn;
